@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../utils/shared_helper.dart';
 import '../../../utils/theme_provider.dart';
+import '../../../widget/bottum_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,18 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Bhagavad Gita"),
-          actions: [
-            Consumer<ThemeProvider>(
-              builder: (context, value, child) => Switch(
-                value: value.isLight,
-                onChanged: (value1) {
-                  ShareHelper shr = ShareHelper();
-                  shr.setTheme(value1);
-                  value.changeTheme();
-                },
-              ),
-            ),
-          ],
         ),
         body: ListView.builder(
           itemCount: providerW!.gitaList.length,
@@ -60,6 +49,42 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           },
         ),
+        endDrawer: Drawer(
+          child: ListView(
+            children: [
+              const SizedBox(height: 20,),
+              const Center(
+                child: CircleAvatar(
+                  radius: 70,
+                  backgroundImage: AssetImage("assets/image/1.jpeg"),
+                ),
+              ),
+              const SizedBox(height: 20,),
+              const Center(child: Text("राधे-राधे"),),
+              const SizedBox(height: 20,),
+              ListTile(
+                onTap: () {
+                  ShowBottomSheet(context);
+                },
+                title: const Text("BookMark"),
+                leading: const Icon(Icons.bookmark_add),
+              ),
+              ListTile(
+                title: context.watch<ThemeProvider>().isLight==true?const Text("Day"):const Text("Night"),
+                leading: Consumer<ThemeProvider>(
+                  builder: (context, value, child) => Switch(
+                    value: value.isLight,
+                    onChanged: (value1) {
+                      ShareHelper shr = ShareHelper();
+                      shr.setTheme(value1);
+                      value.changeTheme();
+                    },
+                  ),
+                ),
+              ),
+            ],
+          )
+        )
       ),
     );
   }

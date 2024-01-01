@@ -3,10 +3,6 @@ import 'package:bhagavad_gita/screen/home/model/home_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../utils/shared_helper.dart';
-import '../../../utils/theme_provider.dart';
-import '../../../widget/bottum_sheet.dart';
-
 class AdhyayScreen extends StatefulWidget {
   const AdhyayScreen({super.key});
 
@@ -72,24 +68,11 @@ class _AdhyayScreenState extends State<AdhyayScreen> {
                       title: const Text("English"),
                     ),
                   ),
-                  PopupMenuItem(
-                    child: Consumer<ThemeProvider>(
-                      builder: (context, value, child) => Switch(
-                        value: value.isLight,
-                        onChanged: (value1) {
-                          ShareHelper shr = ShareHelper();
-                          shr.setTheme(value1);
-                          value.changeTheme();
-                        },
-                      ),
-                    ),
-                  ),
                 ];
               },
             ),
             IconButton(
                 onPressed: () {
-                  ShowBottomSheet(context);
                 },
                 icon: const Icon(Icons.bookmark_add_outlined)),
           ],
@@ -100,11 +83,22 @@ class _AdhyayScreenState extends State<AdhyayScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  "assets/image/Bhagavad_Gita.jpg",
+                Image.network(
+                  model.url,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null ?
+                        loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
                   height: 300,
                   width: 350,
                 ),
+                const SizedBox(height: 20,),
                 const Center(
                   child: Text(" 🙏🙏🙏જય શ્રી કૃષ્ણા 🙏🙏🙏"),
                 ),
