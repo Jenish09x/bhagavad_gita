@@ -28,37 +28,32 @@ class _HomeScreenState extends State<HomeScreen> {
     providerW = context.watch<HomeProvider>();
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Bhagavad Gita"),
-          automaticallyImplyLeading: false,
-          actions: [
-            Consumer<ThemeProvider>(
-              builder: (context, value, child) => Switch(
-                value: value.isLight,
-                onChanged: (value1) {
-                  ShareHelper shr = ShareHelper();
-                  shr.setTheme(value1);
-                  value.changeTheme();
-                },
+          appBar: AppBar(
+            title: const Text("BHAGAVAD GITA"),
+            actions: [
+              Consumer<ThemeProvider>(
+                builder: (context, value, child) => Switch(
+                  value: value.isLight,
+                  onChanged: (value1) {
+                    ShareHelper shr = ShareHelper();
+                    shr.setTheme(value1);
+                    value.changeTheme();
+                  },
+                ),
               ),
-            ),
-          ],
-        ),
-        body: ListView.builder(
-          padding: const EdgeInsets.all(10),
-          itemCount: providerW!.gitaList.length,
-          itemBuilder: (context, index) {
-            HomeModel h1 = providerR!.gitaList[index];
-            return ListTile(
+            ],
+          ),
+          body: ListView.builder(
+            itemCount: providerW!.gitaList.length,
+            itemBuilder: (context, index) => ListTile(
               onTap: () {
-                Navigator.pushNamed(context, "adhyay", arguments: h1);
+                HomeModel h1=providerR!.gitaList[index];
+                Navigator.pushNamed(context, "adhyay",arguments: h1);
               },
-              title: Text(h1.title,style: const TextStyle(fontSize: 15),),
-              leading: Text("${h1.id}",style: const TextStyle(fontSize: 17),),
-            );
-          }
-        ),
-      ),
+              title: Text("${providerW!.gitaList[index].title}"),
+              subtitle: const Text("hii"),
+            ),
+          )),
     );
   }
 }
