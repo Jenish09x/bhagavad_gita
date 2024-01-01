@@ -11,8 +11,16 @@ class ShareHelper {
     bool? isTheme = shr.getBool('theme');
     return isTheme;
   }
-  Future<void> dataSave()
+
+  Future<void> setBookMark(List<String> bookMarkData)
   async {
-    final SharedPreferences shr = await SharedPreferences.getInstance();
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setStringList("Url", bookMarkData);
+  }
+
+  Future<List<String>?> getBookMark()
+  async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return  preferences.getStringList('Url');
   }
 }

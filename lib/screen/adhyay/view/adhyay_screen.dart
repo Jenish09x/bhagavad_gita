@@ -1,12 +1,11 @@
 import 'package:bhagavad_gita/screen/adhyay/provider/adhyay_provider.dart';
 import 'package:bhagavad_gita/screen/home/model/home_model.dart';
 import 'package:flutter/material.dart';
-import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/shared_helper.dart';
 import '../../../utils/theme_provider.dart';
-import '../../home/provider/home_provider.dart';
+import '../../../widget/bottum_sheet.dart';
 
 class AdhyayScreen extends StatefulWidget {
   const AdhyayScreen({super.key});
@@ -27,7 +26,7 @@ class _AdhyayScreenState extends State<AdhyayScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Bhagavad Gita"),
+          title: Text(model.title),
           automaticallyImplyLeading: false,
           actions: [
             PopupMenuButton(
@@ -88,7 +87,11 @@ class _AdhyayScreenState extends State<AdhyayScreen> {
                 ];
               },
             ),
-            const LikeButton(),
+            IconButton(
+                onPressed: () {
+                  ShowBottomSheet(context);
+                },
+                icon: const Icon(Icons.bookmark_add_outlined)),
           ],
         ),
         body: SingleChildScrollView(
@@ -113,10 +116,14 @@ class _AdhyayScreenState extends State<AdhyayScreen> {
                         children: [
                           Text(model.meaning,
                               style: const TextStyle(fontSize: 20)),
-                          const SizedBox(height: 20,),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           Text(model.sholka,
                               style: const TextStyle(fontSize: 20)),
-                          const SizedBox(height: 20,),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           Text(model.english,
                               style: const TextStyle(fontSize: 20)),
                         ],
