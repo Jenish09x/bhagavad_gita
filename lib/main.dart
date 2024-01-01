@@ -1,3 +1,4 @@
+import 'package:bhagavad_gita/screen/adhyay/provider/adhyay_provider.dart';
 import 'package:bhagavad_gita/screen/home/provider/home_provider.dart';
 import 'package:bhagavad_gita/utils/screen_routes.dart';
 import 'package:bhagavad_gita/utils/theme_data.dart';
@@ -11,6 +12,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => HomeProvider(),),
         ChangeNotifierProvider(create: (context) => ThemeProvider(),),
+        ChangeNotifierProvider(create: (context) => AdhyayProvider(),),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, value, child) => MaterialApp(

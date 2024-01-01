@@ -23,39 +23,44 @@ class _HomeScreenState extends State<HomeScreen> {
     context.read<HomeProvider>().getData();
   }
 
+  @override
   Widget build(BuildContext context) {
     providerR = context.read<HomeProvider>();
     providerW = context.watch<HomeProvider>();
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            title: const Text("Bhagavad Gita"),
-            actions: [
-              Consumer<ThemeProvider>(
-                builder: (context, value, child) => Switch(
-                  value: value.isLight,
-                  onChanged: (value1) {
-                    ShareHelper shr = ShareHelper();
-                    shr.setTheme(value1);
-                    value.changeTheme();
-                  },
-                ),
-              ),
-            ],
-          ),
-          body: ListView.builder(
-            itemCount: providerW!.gitaList.length,
-            itemBuilder: (context, index) {
-              HomeModel h1=providerR!.gitaList[index];
-              return ListTile(
-                onTap: () {
-                  Navigator.pushNamed(context, "adhyay",arguments: h1);
+        appBar: AppBar(
+          title: const Text("Bhagavad Gita"),
+          actions: [
+            Consumer<ThemeProvider>(
+              builder: (context, value, child) => Switch(
+                value: value.isLight,
+                onChanged: (value1) {
+                  ShareHelper shr = ShareHelper();
+                  shr.setTheme(value1);
+                  value.changeTheme();
                 },
-                title: Text(h1.title),
-                leading: Text("${h1.id}",style: const TextStyle(fontSize: 17),),
-              );
-            }
-          )),
+              ),
+            ),
+          ],
+        ),
+        body: ListView.builder(
+          itemCount: providerW!.gitaList.length,
+          itemBuilder: (context, index) {
+            HomeModel h1 = providerR!.gitaList[index];
+            return ListTile(
+              onTap: () {
+                Navigator.pushNamed(context, "adhyay", arguments: h1);
+              },
+              title: Text(h1.title),
+              leading: Text(
+                "${h1.id}",
+                style: const TextStyle(fontSize: 17),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
