@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   height: double.infinity,
                   width: double.infinity,
                 ),
-                Align(alignment: Alignment(0,-0.6),
+                Align(alignment: const Alignment(0,-0.6),
                   child: AnimatedTextKit(
                     animatedTexts: [
                       ColorizeAnimatedText(

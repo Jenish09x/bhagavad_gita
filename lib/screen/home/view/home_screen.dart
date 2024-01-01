@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
-            title: const Text("BHAGAVAD GITA"),
+            title: const Text("Bhagavad Gita"),
             actions: [
               Consumer<ThemeProvider>(
                 builder: (context, value, child) => Switch(
@@ -45,14 +45,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           body: ListView.builder(
             itemCount: providerW!.gitaList.length,
-            itemBuilder: (context, index) => ListTile(
-              onTap: () {
-                HomeModel h1=providerR!.gitaList[index];
-                Navigator.pushNamed(context, "adhyay",arguments: h1);
-              },
-              title: Text("${providerW!.gitaList[index].title}"),
-              subtitle: const Text("hii"),
-            ),
+            itemBuilder: (context, index) {
+              HomeModel h1=providerR!.gitaList[index];
+              return ListTile(
+                onTap: () {
+                  Navigator.pushNamed(context, "adhyay",arguments: h1);
+                },
+                title: Text(h1.title),
+                leading: Text("${h1.id}",style: const TextStyle(fontSize: 17),),
+              );
+            }
           )),
     );
   }
